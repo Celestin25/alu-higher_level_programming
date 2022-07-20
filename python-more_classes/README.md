@@ -1,1 +1,1 @@
-python_more_classes
+python-more_classes
