@@ -1,5 +1,5 @@
 #!/usr/bin/node
-// rectangle class with print,rotate,double methed
+// rectangle class with print,rotate,double method
 class Rectangle {
   constructor (w, h) {
     if (w >= 0 && h >= 0) {
@@ -29,4 +29,4 @@ class Rectangle {
     this.height = this.height * 2;
   }
 }
-module.exports = Rectangle; 
+module.exports = Rectangle;
