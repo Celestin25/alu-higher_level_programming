@@ -1,5 +1,5 @@
 #!/usr/bin/node
-// rectangle class with print,rotate,double method
+// rectangle class with print,rotate,double methed
 class Rectangle {
   constructor (w, h) {
     if (w >= 0 && h >= 0) {
