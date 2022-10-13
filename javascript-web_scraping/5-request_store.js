@@ -1,13 +1,13 @@
 #!/usr/bin/node
 // Gets the contents of a webpage and stores it in a file
-require('request').get(process.argv[2], function (err, r, body) {
+const request = require('request');
+const fs = require('fs');
+const url = process.argv[2];
+const filePath = process.argv[3];
+request(url, function (err, response, body) {
   if (err) {
     console.log(err);
   } else {
-    require('fs').writeFile(process.argv[3], body, 'utf-8', function (err) {
-      if (err) {
-        console.log(err);
-      }
-    });
+    fs.writeFile(filePath, body, 'utf-8');
   }
 });
