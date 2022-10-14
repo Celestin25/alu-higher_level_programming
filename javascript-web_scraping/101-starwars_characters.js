@@ -1,29 +1,46 @@
 #!/usr/bin/node
-const movieId = process.argv.slice(2)[0];
+// a script that prints all characters of starwars
 const request = require('request');
+const { argv, exit } = require('process');
 
-const filmsUrl = `https://swapi-api.hbtn.io/api/films/${movieId}`;
+if (argv.length !== 3) {
+  exit(0);
+}
 
-function printCharacterName (characters, index) {
-  request(characters[index], (error, response, body) => {
-    if (error) {
-      console.log(error);
-    } else {
-      const name = JSON.parse(body).name;
-      console.log(name);
-      if (index < characters.length - 1) {
-        printCharacterName(characters, index + 1);
-      }
-    }
+const options = {
+  url: `https://swapi-api.hbtn.io/api/films/${argv[2]}/`,
+  method: 'GET',
+  headers: {
+    'Accept-Charset': 'utf-8'
+  }
+};
+
+function requestStart (optionsUrl, saveValue) {
+  request(optionsUrl, function (err, res, body) {
+    if (err) throw err;
+
+    const characters = JSON.parse(body).characters;
+    const result = {};
+
+    characters.forEach(element => {
+      request(element, function (err, res, _body) {
+        if (err) throw err;
+
+        const name = JSON.parse(_body).name;
+
+        result[element.split('/')[5]] = name;
+        saveValue(result, characters.length);
+      });
+    });
   });
 }
 
-request(filmsUrl, (error, response, body) => {
-  if (error) {
-    console.log(error);
-  } else {
-    const parseData = JSON.parse(body);
-    const characters = parseData.characters;
-    printCharacterName(characters, 0);
+let i = 0;
+requestStart(options, function (dict, length) {
+  i++;
+  if (i === length) {
+    for (const name in dict) {
+      console.log(dict[name]);
+    }
   }
 });
