@@ -1,5 +1,6 @@
 #!/usr/bin/node
 // JS Script
-for (const line of ['c is fun', 'Python is cool', 'Javascript is amazing']) {
-  console.log(line);
+const msg = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
+for (let i = 0; i < 3; i++) {
+  console.log(msg[i]);
 }
